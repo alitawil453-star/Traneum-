@@ -1,2 +1,0 @@
-# Traneum-
-Token, smart contract 

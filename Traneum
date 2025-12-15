@@ -1,0 +1,37 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+// Import the OpenZeppelin interface for ERC-20, 
+// as it provides essential functions like transfer, allowance, and balance tracking.
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.4.0/contracts/token/ERC20/ERC20.sol";
+
+// 
+
+contract Traneum is ERC20 {
+    // Define the maximum supply for the token
+    uint256 private constant MAX_SUPPLY = 50000000 * (10**18); // 50 Million tokens
+
+    // The token deployer's address will be the initial owner (minter)
+    address public owner;
+
+    constructor() ERC20("Traneum", "TRN") {
+        owner = msg.sender;
+        
+        // Mint the total supply and send it to the contract creator's address
+        _mint(msg.sender, MAX_SUPPLY);
+    }
+    
+    // An optional function to enforce the supply limit, though not strictly needed 
+    // if all tokens are minted in the constructor.
+    // If you plan to add a MINT function later, you must add a check here:
+    /*
+    function mint(address to, uint256 amount) public onlyOwner {
+        require(totalSupply() + amount <= MAX_SUPPLY, "Traneum: Exceeds max supply limit");
+        _mint(to, amount);
+    }
+    */
+
+    // Optional: Add an event to track when the supply is minted (though it happens in the constructor)
+    event MaxSupplyMinted(address indexed recipient, uint256 amount);
+}
+
